@@ -85,6 +85,7 @@ export const searchSchema = z.object({
   tags: z.string().max(200).optional().default(''),
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(50).default(12),
+  sortBy: z.string().optional().default('newest'),
 });
 
 // ─── Types ────────────────────────────────────────────────────────────────────

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { Search, Filter, X, Loader2, GridIcon, List } from 'lucide-react';
+import { Search, X, ArrowUpDown } from 'lucide-react';
 import ProjectCard from '@/components/projects/ProjectCard';
 
 interface Project {
@@ -28,8 +28,16 @@ interface Pagination {
   hasPrev: boolean;
 }
 
+const SORT_OPTIONS = [
+  { value: 'newest', label: '🕐 Newest First' },
+  { value: 'oldest', label: '📅 Oldest First' },
+  { value: 'title-asc', label: '🔤 Title A → Z' },
+  { value: 'title-desc', label: '🔤 Title Z → A' },
+  { value: 'members', label: '👥 Most Members' },
+  { value: 'relevance', label: '⭐ Best Match' },
+];
+
 export default function ProjectsPageClient() {
-  const router = useRouter();
   const searchParams = useSearchParams();
 
   const [projects, setProjects] = useState<Project[]>([]);
@@ -40,6 +48,7 @@ export default function ProjectsPageClient() {
   const [query, setQuery] = useState(searchParams.get('q') || '');
   const [batch, setBatch] = useState(searchParams.get('batch') || '');
   const [tags, setTags] = useState(searchParams.get('tags') || '');
+  const [sortBy, setSortBy] = useState(searchParams.get('sortBy') || 'newest');
   const [page, setPage] = useState(Number(searchParams.get('page')) || 1);
 
   const fetchProjects = useCallback(async () => {
@@ -49,6 +58,7 @@ export default function ProjectsPageClient() {
       if (query) params.set('q', query);
       if (batch) params.set('batch', batch);
       if (tags) params.set('tags', tags);
+      if (sortBy && sortBy !== 'newest') params.set('sortBy', sortBy);
       params.set('page', String(page));
 
       const res = await fetch(`/api/projects?${params.toString()}`);
@@ -63,7 +73,7 @@ export default function ProjectsPageClient() {
     } finally {
       setLoading(false);
     }
-  }, [query, batch, tags, page]);
+  }, [query, batch, tags, sortBy, page]);
 
   useEffect(() => {
     fetchProjects();
@@ -79,6 +89,10 @@ export default function ProjectsPageClient() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     setPage(1);
+    // Auto-switch to relevance sorting when searching
+    if (query && sortBy === 'newest') {
+      setSortBy('relevance');
+    }
     fetchProjects();
   };
 
@@ -86,10 +100,11 @@ export default function ProjectsPageClient() {
     setQuery('');
     setBatch('');
     setTags('');
+    setSortBy('newest');
     setPage(1);
   };
 
-  const hasFilters = query || batch || tags;
+  const hasFilters = query || batch || tags || sortBy !== 'newest';
 
   return (
     <div style={{ minHeight: '80vh', padding: '2.5rem 0 4rem' }}>
@@ -100,12 +115,12 @@ export default function ProjectsPageClient() {
             Explore <span className="gradient-text">Projects</span>
           </h1>
           <p style={{ color: 'var(--text-secondary)' }}>
-            {pagination ? `${pagination.total.toLocaleString()} projects` : 'Browse all projects'}
+            {pagination ? `${pagination.total.toLocaleString()} projects found` : 'Browse all projects'}
           </p>
         </div>
 
         {/* Search + Filters */}
-        <form onSubmit={handleSearch} style={{ marginBottom: '2rem' }}>
+        <form onSubmit={handleSearch} style={{ marginBottom: '1.25rem' }}>
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
             {/* Main Search */}
             <div style={{ position: 'relative', flex: '1 1 300px' }}>
@@ -113,7 +128,7 @@ export default function ProjectsPageClient() {
               <input
                 id="search-input"
                 type="text"
-                placeholder="Search by title, group, member name or email..."
+                placeholder="Search by title, group, member, email, mentor, tag..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 className="form-input"
@@ -121,42 +136,87 @@ export default function ProjectsPageClient() {
               />
             </div>
 
-            {/* Batch Filter */}
-            <select
-              id="batch-filter"
-              value={batch}
-              onChange={(e) => { setBatch(e.target.value); setPage(1); }}
-              className="form-input"
-              style={{ flex: '0 1 160px' }}
-            >
-              <option value="">All Batches</option>
-              {batches.map((b) => (
-                <option key={b} value={b}>{b}</option>
-              ))}
-            </select>
-
-            {/* Tag Filter */}
-            <input
-              id="tag-filter"
-              type="text"
-              placeholder="Filter by tags (comma-separated)"
-              value={tags}
-              onChange={(e) => setTags(e.target.value)}
-              className="form-input"
-              style={{ flex: '0 1 240px' }}
-            />
-
             <button type="submit" className="btn btn-primary" id="search-btn">
               <Search size={16} /> Search
             </button>
 
             {hasFilters && (
               <button type="button" onClick={clearFilters} className="btn btn-secondary" id="clear-btn">
-                <X size={16} /> Clear
+                <X size={16} /> Clear All
               </button>
             )}
           </div>
         </form>
+
+        {/* Filter Row: Batch, Tags, Sort */}
+        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '2rem', alignItems: 'center' }}>
+          {/* Batch Filter */}
+          <select
+            id="batch-filter"
+            value={batch}
+            onChange={(e) => { setBatch(e.target.value); setPage(1); }}
+            className="form-input"
+            style={{ flex: '0 1 170px' }}
+          >
+            <option value="">All Batches</option>
+            {batches.map((b) => (
+              <option key={b} value={b}>{b}</option>
+            ))}
+          </select>
+
+          {/* Tag Filter */}
+          <input
+            id="tag-filter"
+            type="text"
+            placeholder="Filter by tags (comma-separated)"
+            value={tags}
+            onChange={(e) => setTags(e.target.value)}
+            className="form-input"
+            style={{ flex: '0 1 240px' }}
+          />
+
+          {/* Sort By */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', marginLeft: 'auto' }}>
+            <ArrowUpDown size={14} color="var(--text-muted)" />
+            <select
+              id="sort-filter"
+              value={sortBy}
+              onChange={(e) => { setSortBy(e.target.value); setPage(1); }}
+              className="form-input"
+              style={{ width: 170, fontSize: '0.85rem' }}
+            >
+              {SORT_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>{opt.label}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Active Filter Chips */}
+        {hasFilters && (
+          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1.5rem' }}>
+            {query && (
+              <span className="tag" style={{ gap: '0.375rem', cursor: 'pointer' }} onClick={() => { setQuery(''); setPage(1); }}>
+                Search: &quot;{query}&quot; <X size={12} />
+              </span>
+            )}
+            {batch && (
+              <span className="tag tag-amber" style={{ gap: '0.375rem', cursor: 'pointer' }} onClick={() => { setBatch(''); setPage(1); }}>
+                Batch: {batch} <X size={12} />
+              </span>
+            )}
+            {tags && (
+              <span className="tag tag-cyan" style={{ gap: '0.375rem', cursor: 'pointer' }} onClick={() => { setTags(''); setPage(1); }}>
+                Tags: {tags} <X size={12} />
+              </span>
+            )}
+            {sortBy !== 'newest' && (
+              <span className="tag" style={{ gap: '0.375rem', cursor: 'pointer', background: 'rgba(16,185,129,0.15)', color: '#34d399', borderColor: 'rgba(16,185,129,0.25)' }} onClick={() => { setSortBy('newest'); setPage(1); }}>
+                Sort: {SORT_OPTIONS.find(o => o.value === sortBy)?.label} <X size={12} />
+              </span>
+            )}
+          </div>
+        )}
 
         {/* Loading State */}
         {loading ? (
@@ -172,7 +232,7 @@ export default function ProjectsPageClient() {
             <p style={{ color: 'var(--text-secondary)' }}>Try adjusting your search or filters</p>
             {hasFilters && (
               <button onClick={clearFilters} className="btn btn-secondary" style={{ marginTop: '1rem' }}>
-                Clear Filters
+                Clear All Filters
               </button>
             )}
           </div>
