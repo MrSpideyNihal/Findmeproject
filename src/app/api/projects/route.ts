@@ -5,10 +5,32 @@ import dbConnect from '@/lib/mongoose/mongoose';
 import Project from '@/models/Project';
 import { projectSchema, searchSchema } from '@/lib/validations/validations';
 
+// Simple in-memory rate limiting for search (60 req/min per IP)
+const searchRateMap = new Map<string, { count: number; resetAt: number }>();
+const SEARCH_LIMIT = 60;
+const SEARCH_WINDOW_MS = 60 * 1000; // 1 minute
+
+function checkSearchRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const record = searchRateMap.get(ip);
+  if (!record || now > record.resetAt) {
+    searchRateMap.set(ip, { count: 1, resetAt: now + SEARCH_WINDOW_MS });
+    return true;
+  }
+  if (record.count >= SEARCH_LIMIT) return false;
+  record.count += 1;
+  return true;
+}
+
 /**
  * GET /api/projects - Public: search/list projects
  */
 export async function GET(request: NextRequest) {
+  const ip = request.headers.get('x-forwarded-for') || 'unknown';
+  if (!checkSearchRateLimit(ip)) {
+    return NextResponse.json({ error: 'Too many requests. Please slow down.' }, { status: 429 });
+  }
+
   try {
     const { searchParams } = request.nextUrl;
     const parsed = searchSchema.safeParse({
