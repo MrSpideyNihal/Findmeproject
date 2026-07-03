@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { Award, Code, Lightbulb, Users, ShieldAlert, GraduationCap } from 'lucide-react';
+import Image from 'next/image';
+import { Award, Code, Lightbulb, Users } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -12,8 +13,18 @@ export default function AboutPage() {
       <div className="container" style={{ maxWidth: 800 }}>
         {/* Header Section */}
         <div style={{ textAlign: 'center', marginBottom: '3.5rem' }} className="animate-fade-in-up">
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.375rem 1rem', background: 'rgba(124,58,237,0.15)', border: '1px solid rgba(124,58,237,0.3)', borderRadius: 999, fontSize: '0.8rem', color: 'var(--accent-primary-light)', fontWeight: 600, marginBottom: '1.25rem' }}>
-            <GraduationCap size={16} /> G.H. Raisoni College of Engineering
+        {/* College Logo */}
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
+            <div className="glass-card" style={{ display: 'inline-flex', padding: '0.875rem 1.75rem', borderRadius: 16 }}>
+              <Image
+                src="/raisoni-logo.webp"
+                alt="GH Raisoni College of Engineering"
+                width={220}
+                height={72}
+                style={{ objectFit: 'contain', height: 72, width: 'auto' }}
+                priority
+              />
+            </div>
           </div>
           <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 900, marginBottom: '1.25rem' }}>
             About <span className="gradient-text">Raisoni-Projects</span>

@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useSession, signOut } from 'next-auth/react';
 import { useState } from 'react';
-import { BookOpen, Search, LayoutDashboard, LogIn, LogOut, Plus, Menu, X, Layers, Info } from 'lucide-react';
+import { Search, LayoutDashboard, LogIn, LogOut, Plus, Menu, X, Info } from 'lucide-react';
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -13,15 +14,15 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px' }}>
         {/* Logo */}
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 800, fontSize: '1.2rem' }}>
-          <div style={{
-            width: 32, height: 32, borderRadius: 8,
-            background: 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))',
-            display: 'flex', alignItems: 'center', justifyContent: 'center'
-          }}>
-            <Layers size={18} color="white" />
-          </div>
-          <span>Raisoni<span className="gradient-text">-Projects</span></span>
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', fontWeight: 800, fontSize: '1.1rem' }}>
+          <Image
+            src="/raisoni-logo.webp"
+            alt="GH Raisoni College"
+            width={120}
+            height={40}
+            style={{ objectFit: 'contain', height: 40, width: 'auto' }}
+            priority
+          />
         </Link>
 
         {/* Desktop Nav */}
