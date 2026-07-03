@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useSession, signOut } from 'next-auth/react';
 import { useState } from 'react';
-import { Search, LayoutDashboard, LogIn, LogOut, Plus, Menu, X, Info } from 'lucide-react';
+import { Search, LayoutDashboard, LogIn, LogOut, Plus, Menu, X, Info, Star } from 'lucide-react';
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -33,6 +33,14 @@ export default function Navbar() {
           <Link href="/about" style={{ padding: '0.5rem 0.875rem', borderRadius: 8, color: 'var(--text-secondary)', fontSize: '0.9rem', fontWeight: 500, display: 'flex', alignItems: 'center', gap: '0.375rem', transition: 'all 0.2s' }}>
             <Info size={16} /> About
           </Link>
+          <a
+            href="https://github.com/MrSpideyNihal/Findmeproject"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ padding: '0.5rem 0.875rem', borderRadius: 8, color: 'var(--text-amber)', fontSize: '0.9rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.375rem', transition: 'all 0.2s' }}
+          >
+            <Star size={16} fill="var(--text-amber)" /> Star Repo
+          </a>
           {session ? (
             <>
               <Link href="/dashboard" style={{ padding: '0.5rem 0.875rem', borderRadius: 8, color: 'var(--text-secondary)', fontSize: '0.9rem', fontWeight: 500, display: 'flex', alignItems: 'center', gap: '0.375rem', transition: 'all 0.2s' }}>
@@ -84,6 +92,15 @@ export default function Navbar() {
           <Link href="/about" onClick={() => setMobileOpen(false)} style={{ padding: '0.75rem', borderRadius: 8, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <Info size={16} /> About
           </Link>
+          <a
+            href="https://github.com/MrSpideyNihal/Findmeproject"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMobileOpen(false)}
+            style={{ padding: '0.75rem', borderRadius: 8, color: 'var(--text-amber)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600 }}
+          >
+            <Star size={16} fill="var(--text-amber)" /> Star Repo
+          </a>
           {session ? (
             <>
               <Link href="/dashboard" onClick={() => setMobileOpen(false)} style={{ padding: '0.75rem', borderRadius: 8, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
