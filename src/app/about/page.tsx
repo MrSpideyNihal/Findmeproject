@@ -40,10 +40,10 @@ export default function AboutPage() {
             Our Purpose
           </h2>
           <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: '1.5rem' }}>
-            At **G.H. Raisoni College of Engineering (GHRCE)**, innovation is at the core of our educational philosophy. Every year, students push boundaries in Artificial Intelligence, Software Engineering, Internet of Things (IoT), and Robotics to create answers for real-world dilemmas.
+            At <strong>G.H. Raisoni College of Engineering (GHRCE)</strong>, innovation is at the core of our educational philosophy. Every year, students push boundaries in Artificial Intelligence, Software Engineering, Internet of Things (IoT), and Robotics to create answers for real-world dilemmas.
           </p>
           <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: '1.5rem' }}>
-            **Raisoni-Projects** serves as the central showcase archive for these student undertakings. The platform allows faculty advisors and mentors to catalog, publish, and present production-ready projects developed across all engineering departments. 
+            <strong>Raisoni-Projects</strong> serves as the central showcase archive for these student undertakings. The platform allows faculty advisors and mentors to catalog, publish, and present production-ready projects developed across all engineering departments. 
           </p>
           <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8 }}>
             By hosting source repositories, functional video demos, and complete member profiles, we provide a transparent, accessible vault for potential employers, recruiters, and fellow scholars to discover, evaluate, and collaborate with student innovators.
