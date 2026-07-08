@@ -12,6 +12,16 @@ const SEARCH_WINDOW_MS = 60 * 1000; // 1 minute
 
 function checkSearchRateLimit(ip: string): boolean {
   const now = Date.now();
+
+  // Prevent memory leak by pruning stale items when map grows
+  if (searchRateMap.size > 1000) {
+    for (const [key, val] of searchRateMap.entries()) {
+      if (now > val.resetAt) {
+        searchRateMap.delete(key);
+      }
+    }
+  }
+
   const record = searchRateMap.get(ip);
   if (!record || now > record.resetAt) {
     searchRateMap.set(ip, { count: 1, resetAt: now + SEARCH_WINDOW_MS });

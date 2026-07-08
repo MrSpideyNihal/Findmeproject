@@ -13,6 +13,16 @@ const RATE_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
 
 function checkRateLimit(ip: string): boolean {
   const now = Date.now();
+
+  // Prevent memory leak by pruning stale items when map grows
+  if (attemptMap.size > 1000) {
+    for (const [key, val] of attemptMap.entries()) {
+      if (now > val.resetAt) {
+        attemptMap.delete(key);
+      }
+    }
+  }
+
   const record = attemptMap.get(ip);
 
   if (!record || now > record.resetAt) {

@@ -43,7 +43,9 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
   const getYouTubeEmbedId = (url: string) => {
     const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/);
-    return match ? match[1] : null;
+    if (!match) return null;
+    const id = match[1];
+    return /^[a-zA-Z0-9_-]+$/.test(id) ? id : null;
   };
 
   const embedId = project.youtubeUrl ? getYouTubeEmbedId(project.youtubeUrl) : null;
