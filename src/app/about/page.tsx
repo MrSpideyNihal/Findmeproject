@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import { Award, Code, Lightbulb, Users } from 'lucide-react';
+import { Award, Lightbulb, Users, CheckCircle2, FileText } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -105,14 +105,53 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Testers placeholder */}
-          <div className="glass-card glow-border" style={{ marginTop: '2rem', padding: '1.25rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(245,158,11,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-              <Code size={18} color="var(--accent-tertiary)" />
+          {/* Contributors Row */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '1.5rem', marginTop: '2rem' }}>
+            {/* QA Card */}
+            <div className="glass-card glow-border" style={{ padding: '1.75rem' }}>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+                <CheckCircle2 size={20} color="var(--accent-tertiary)" />
+                Quality Assurance & Testing
+              </h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                {[
+                  { name: 'Sagar Meshram', dept: 'AI - 2027', role: 'Authentication' },
+                  { name: 'Deepanshu Choudhary', dept: 'AI - 2027', role: 'Functionality' },
+                  { name: 'Yogini Nasare', dept: 'AIML - 2027', role: 'UI / UX' },
+                  { name: 'Sumukh Nikhare', dept: 'AI - 2027', role: 'Routing' },
+                  { name: 'Kshitija Lanjewar', dept: 'AI - 2027', role: 'Security' }
+                ].map((tester, i) => (
+                  <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: i < 4 ? '1px solid var(--border-secondary)' : 'none', paddingBottom: i < 4 ? '0.75rem' : '0', gap: '1rem' }}>
+                    <div>
+                      <div style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-primary)' }}>{tester.name}</div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{tester.dept}</div>
+                    </div>
+                    <span className="tag tag-cyan" style={{ fontSize: '0.75rem', padding: '0.125rem 0.5rem', whiteSpace: 'nowrap' }}>{tester.role}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div>
-              <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-primary)' }}>Quality Assurance & Testers</h4>
-              <p style={{ fontSize: '0.775rem', color: 'var(--text-muted)' }}>The list of QA team members and project testers will be updated soon.</p>
+
+            {/* Documentation Card */}
+            <div className="glass-card glow-border" style={{ padding: '1.75rem' }}>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+                <FileText size={20} color="var(--accent-primary-light)" />
+                Codebase Documentation
+              </h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                {[
+                  { name: 'Harsh Aknurwar', dept: 'AI - 2027', role: 'Technical Writing' },
+                  { name: 'Rohit Bhise', dept: 'AI - 2027', role: 'Technical Writing' }
+                ].map((doc, i) => (
+                  <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: i < 1 ? '1px solid var(--border-secondary)' : 'none', paddingBottom: i < 1 ? '0.75rem' : '0', gap: '1rem' }}>
+                    <div>
+                      <div style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-primary)' }}>{doc.name}</div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{doc.dept}</div>
+                    </div>
+                    <span className="tag tag-amber" style={{ fontSize: '0.75rem', padding: '0.125rem 0.5rem', whiteSpace: 'nowrap' }}>{doc.role}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
