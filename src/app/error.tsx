@@ -28,7 +28,9 @@ export default function Error({
         </div>
         <h2 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '0.75rem' }}>Something went wrong</h2>
         <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem', lineHeight: 1.6 }}>
-          {error.message || 'An unexpected error occurred. Please try again.'}
+          {process.env.NODE_ENV !== 'production'
+            ? error.message || 'An unexpected error occurred. Please try again.'
+            : 'An unexpected error occurred. Please try again.'}
         </p>
         <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
           <button onClick={reset} className="btn btn-primary">

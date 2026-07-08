@@ -13,14 +13,18 @@ export const metadata: Metadata = {
 async function getStats() {
   try {
     await dbConnect();
-    const [totalProjects, batches] = await Promise.all([
+    const [totalProjects, batches, memberCountResult] = await Promise.all([
       Project.countDocuments(),
       Project.distinct('batchName'),
+      Project.aggregate([
+        { $project: { memberCount: { $size: { $ifNull: ['$members', []] } } } },
+        { $group: { _id: null, total: { $sum: '$memberCount' } } }
+      ])
     ]);
-    const allProjects = await Project.find({}, 'members').lean();
-    const totalMembers = allProjects.reduce((sum, p) => sum + p.members.length, 0);
+    const totalMembers = memberCountResult[0]?.total || 0;
     return { totalProjects, totalBatches: batches.length, totalMembers };
-  } catch {
+  } catch (error) {
+    console.error('getStats error:', error);
     return { totalProjects: 0, totalBatches: 0, totalMembers: 0 };
   }
 }
