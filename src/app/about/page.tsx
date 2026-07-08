@@ -100,7 +100,7 @@ export default function AboutPage() {
               <h3 style={{ fontSize: '1.05rem', fontWeight: 800, marginBottom: '0.25rem' }}>Nihal Rodge</h3>
               <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', marginBottom: '0.75rem' }}>Student (Batch of 2027)</p>
               <p style={{ fontSize: '0.825rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginTop: 'auto' }}>
-                Built the core architecture, MongoDB schema models, Zod validation logic, security structures, and responsive interface layout.
+                Designed and engineered the complete full-stack platform. Built the responsive client interface, secure NextAuth integrations, SheetJS Excel import pipelines, high-performance search indexing, and global routing middlewares.
               </p>
             </div>
           </div>
