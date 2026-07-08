@@ -19,6 +19,7 @@
     "next-auth": "^4.24.14",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz",
     "zod": "^4.4.3"
   },
   "devDependencies": {

@@ -1,10 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Plus, Github, Calendar, Trash2, Edit3, ExternalLink, BookOpen, Users, Eye } from 'lucide-react';
+import { Plus, Github, Calendar, Trash2, Edit3, ExternalLink, BookOpen, Users, Eye, FileSpreadsheet } from 'lucide-react';
 import { useToast } from '@/components/ToastProvider';
+
+const ExcelImport = lazy(() => import('@/components/dashboard/ExcelImport'));
 
 interface Project {
   _id: string;
@@ -31,6 +33,7 @@ export default function DashboardClient({ user, initialProjects }: DashboardClie
   const [projects, setProjects] = useState<Project[]>(initialProjects);
   const [deleting, setDeleting] = useState<string | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
+  const [showImport, setShowImport] = useState(false);
 
   const handleDelete = async (id: string) => {
     setDeleting(id);
@@ -62,9 +65,14 @@ export default function DashboardClient({ user, initialProjects }: DashboardClie
             </h1>
             <p style={{ color: 'var(--text-secondary)' }}>{user.email}</p>
           </div>
-          <Link href="/add-project" className="btn btn-primary" id="add-project-btn">
-            <Plus size={18} /> Add New Project
-          </Link>
+          <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+            <button onClick={() => setShowImport(true)} className="btn btn-secondary" id="import-excel-btn">
+              <FileSpreadsheet size={18} /> Import from Excel
+            </button>
+            <Link href="/add-project" className="btn btn-primary" id="add-project-btn">
+              <Plus size={18} /> Add New Project
+            </Link>
+          </div>
         </div>
 
         {/* Stats Row */}
@@ -154,6 +162,18 @@ export default function DashboardClient({ user, initialProjects }: DashboardClie
               ))}
             </div>
           </div>
+        )}
+
+        {/* Excel Import Modal */}
+        {showImport && (
+          <Suspense fallback={null}>
+            <ExcelImport
+              onClose={() => setShowImport(false)}
+              onImportComplete={() => {
+                router.refresh();
+              }}
+            />
+          </Suspense>
         )}
       </div>
     </div>
