@@ -115,18 +115,18 @@ export default function AboutPage() {
               </h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 {[
-                  { name: 'Sagar Meshram', dept: 'AI - 2027', role: 'Authentication' },
-                  { name: 'Deepanshu Choudhary', dept: 'AI - 2027', role: 'Functionality' },
-                  { name: 'Yogini Nasare', dept: 'AIML - 2027', role: 'UI / UX' },
-                  { name: 'Sumukh Nikhare', dept: 'AI - 2027', role: 'Routing' },
-                  { name: 'Kshitija Lanjewar', dept: 'IOT - 2027', role: 'Security' }
+                  { name: 'Sagar Meshram', dept: 'AI - 2027', role: 'Authentication & Login Security Testing' },
+                  { name: 'Deepanshu Choudhary', dept: 'AI - 2027', role: 'Functionality Verification' },
+                  { name: 'Yogini Nasare', dept: 'AIML - 2027', role: 'UI, Styling & Accessibility Audits' },
+                  { name: 'Sumukh Nikhare', dept: 'AI - 2027', role: 'Routing & Navigation Path Auditing' },
+                  { name: 'Kshitija Lanjewar', dept: 'IOT - 2027', role: 'Security & Vulnerability Scans' }
                 ].map((tester, i) => (
                   <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: i < 4 ? '1px solid var(--border-secondary)' : 'none', paddingBottom: i < 4 ? '0.75rem' : '0', gap: '1rem' }}>
                     <div>
                       <div style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-primary)' }}>{tester.name}</div>
                       <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{tester.dept}</div>
                     </div>
-                    <span className="tag tag-cyan" style={{ fontSize: '0.75rem', padding: '0.125rem 0.5rem', whiteSpace: 'nowrap' }}>{tester.role}</span>
+                    <span className="tag tag-cyan" style={{ fontSize: '0.75rem', padding: '0.125rem 0.5rem' }}>{tester.role}</span>
                   </div>
                 ))}
               </div>
@@ -140,8 +140,8 @@ export default function AboutPage() {
               </h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 {[
-                  { name: 'Harsh Aknurwar', dept: 'AI - 2027', role: 'Technical Writing' },
-                  { name: 'Rohit Bhise', dept: 'AI - 2027', role: 'Technical Writing' }
+                  { name: 'Harsh Aknurwar', dept: 'AI - 2027', role: 'Technical Documentation & Writing' },
+                  { name: 'Rohit Bhise', dept: 'AI - 2027', role: 'Technical Documentation & Writing' }
                 ].map((doc, i) => (
                   <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: i < 1 ? '1px solid var(--border-secondary)' : 'none', paddingBottom: i < 1 ? '0.75rem' : '0', gap: '1rem' }}>
                     <div>
