@@ -13,7 +13,7 @@ export default function AboutPage() {
       <div className="container" style={{ maxWidth: 800 }}>
         {/* Header Section */}
         <div style={{ textAlign: 'center', marginBottom: '3.5rem' }} className="animate-fade-in-up">
-        {/* College Logo */}
+          {/* College Logo */}
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
             <div className="glass-card" style={{ display: 'inline-flex', padding: '0.875rem 1.75rem', borderRadius: 16 }}>
               <Image
@@ -43,7 +43,7 @@ export default function AboutPage() {
             At <strong>G.H. Raisoni College of Engineering (GHRCE)</strong>, innovation is at the core of our educational philosophy. Every year, students push boundaries in Artificial Intelligence, Software Engineering, Internet of Things (IoT), and Robotics to create answers for real-world dilemmas.
           </p>
           <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: '1.5rem' }}>
-            <strong>Raisoni-Projects</strong> serves as the central showcase archive for these student undertakings. The platform allows faculty advisors and mentors to catalog, publish, and present production-ready projects developed across all engineering departments. 
+            <strong>Raisoni-Projects</strong> serves as the central showcase archive for these student undertakings. The platform allows faculty advisors and mentors to catalog, publish, and present production-ready projects developed across all engineering departments.
           </p>
           <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8 }}>
             By hosting source repositories, functional video demos, and complete member profiles, we provide a transparent, accessible vault for potential employers, recruiters, and fellow scholars to discover, evaluate, and collaborate with student innovators.
@@ -119,7 +119,7 @@ export default function AboutPage() {
                   { name: 'Deepanshu Choudhary', dept: 'AI - 2027', role: 'Functionality' },
                   { name: 'Yogini Nasare', dept: 'AIML - 2027', role: 'UI / UX' },
                   { name: 'Sumukh Nikhare', dept: 'AI - 2027', role: 'Routing' },
-                  { name: 'Kshitija Lanjewar', dept: 'AI - 2027', role: 'Security' }
+                  { name: 'Kshitija Lanjewar', dept: 'IOT - 2027', role: 'Security' }
                 ].map((tester, i) => (
                   <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: i < 4 ? '1px solid var(--border-secondary)' : 'none', paddingBottom: i < 4 ? '0.75rem' : '0', gap: '1rem' }}>
                     <div>
