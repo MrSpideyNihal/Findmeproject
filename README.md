@@ -1,4 +1,4 @@
-# Raisoni-Projects – Academic Project Showcase
+# Academic Project Showcase
 
 ### Version 1.0.0-stable
 A unified academic project showcase platform designed for G.H. Raisoni College of Engineering (GHRCE) to exhibit student innovations, promote research, and connect tomorrow's engineers with industry leaders. Built with Next.js 15 (App Router), MongoDB, and NextAuth.
