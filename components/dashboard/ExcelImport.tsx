@@ -410,7 +410,7 @@ export default function ExcelImport({ onClose, onImportComplete }: ExcelImportPr
               </div>
 
               {/* Projects list */}
-              <div className="excel-import-projects-list">
+              <div className="excel-import-projects-list" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxHeight: '400px', overflowY: 'auto', paddingRight: '0.25rem' }}>
                 {filteredProjects.map((project) => {
                   const realIdx = projects.indexOf(project);
                   const isSelected = selected.has(realIdx);
@@ -422,15 +422,16 @@ export default function ExcelImport({ onClose, onImportComplete }: ExcelImportPr
                       key={realIdx}
                       className={`excel-import-project-card ${isSelected ? 'selected' : ''} ${hasWarnings ? 'has-warnings' : ''}`}
                       style={{
+                        display: 'block',
                         background: 'var(--bg-card)',
                         border: `1px solid ${isSelected ? 'rgba(124, 58, 237, 0.4)' : hasWarnings ? 'rgba(245, 158, 11, 0.3)' : 'var(--border-secondary)'}`,
                         borderRadius: 'var(--radius-md)',
-                        overflow: 'hidden',
                         color: 'var(--text-primary)',
                         fontSize: '0.9rem',
-                        lineHeight: 1.5,
+                        lineHeight: '1.5',
                         transition: 'all 0.2s',
                         flexShrink: 0,
+                        minHeight: '60px',
                       }}
                     >
                       <div
@@ -440,8 +441,10 @@ export default function ExcelImport({ onClose, onImportComplete }: ExcelImportPr
                           display: 'flex',
                           alignItems: 'flex-start',
                           gap: '0.75rem',
-                          padding: '0.875rem 1rem',
+                          padding: '14px 16px',
                           cursor: 'pointer',
+                          minHeight: '56px',
+                          boxSizing: 'border-box',
                         }}
                       >
                         <div className="excel-import-checkbox">
