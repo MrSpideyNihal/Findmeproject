@@ -421,10 +421,27 @@ export default function ExcelImport({ onClose, onImportComplete }: ExcelImportPr
                     <div
                       key={realIdx}
                       className={`excel-import-project-card ${isSelected ? 'selected' : ''} ${hasWarnings ? 'has-warnings' : ''}`}
+                      style={{
+                        background: 'var(--bg-card)',
+                        border: `1px solid ${isSelected ? 'rgba(124, 58, 237, 0.4)' : hasWarnings ? 'rgba(245, 158, 11, 0.3)' : 'var(--border-secondary)'}`,
+                        borderRadius: 'var(--radius-md)',
+                        overflow: 'hidden',
+                        color: 'var(--text-primary)',
+                        fontSize: '0.9rem',
+                        lineHeight: 1.5,
+                        transition: 'all 0.2s',
+                      }}
                     >
                       <div
                         className="excel-import-project-header"
                         onClick={() => toggleSelect(realIdx)}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'flex-start',
+                          gap: '0.75rem',
+                          padding: '0.875rem 1rem',
+                          cursor: 'pointer',
+                        }}
                       >
                         <div className="excel-import-checkbox">
                           {isSelected ? (
