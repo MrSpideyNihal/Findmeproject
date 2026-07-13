@@ -1,4 +1,4 @@
-name: Raisoni-Projects CI Pipeline
+name: Find-Projects CI Pipeline
 
 on:
   push:
