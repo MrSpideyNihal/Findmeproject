@@ -430,6 +430,7 @@ export default function ExcelImport({ onClose, onImportComplete }: ExcelImportPr
                         fontSize: '0.9rem',
                         lineHeight: 1.5,
                         transition: 'all 0.2s',
+                        flexShrink: 0,
                       }}
                     >
                       <div

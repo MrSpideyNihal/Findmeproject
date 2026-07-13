@@ -710,6 +710,7 @@ tr:hover td {
   color: var(--text-primary);
   font-size: 0.9rem;
   line-height: 1.5;
+  flex-shrink: 0;
 }
 
 .excel-import-project-card:hover {
