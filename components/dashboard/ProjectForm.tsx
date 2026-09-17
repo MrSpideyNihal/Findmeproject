@@ -96,7 +96,7 @@ export default function ProjectForm({ mode, projectId, initialData }: ProjectFor
         return;
       }
 
-      showToast(mode === 'create' ? 'Project created successfully! 🎉' : 'Project updated!', 'success');
+      showToast(mode === 'create' ? 'Project created successfully' : 'Project updated successfully', 'success');
       router.push('/dashboard');
       router.refresh();
     } catch {
@@ -196,12 +196,12 @@ export default function ProjectForm({ mode, projectId, initialData }: ProjectFor
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               {members.map((member, i) => (
-                <div key={i} style={{ background: 'var(--bg-secondary)', borderRadius: 'var(--radius-md)', padding: '1.25rem', border: '1px solid var(--border-secondary)' }}>
+                <div key={i} style={{ background: '#ffffff', borderRadius: 'var(--radius-md)', padding: '1.25rem', border: '1px solid var(--border-secondary)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                    <span style={{ fontWeight: 600, fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Member {i + 1}</span>
-                    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                      <label style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', fontSize: '0.8rem', cursor: 'pointer', color: member.isLead ? 'var(--accent-tertiary)' : 'var(--text-muted)' }}>
-                        <input type="checkbox" checked={member.isLead} onChange={(e) => updateMember(i, 'isLead', e.target.checked)} style={{ accentColor: 'var(--accent-tertiary)' }} />
+                    <span style={{ fontWeight: 600, fontSize: '0.875rem', color: 'var(--text-primary)' }}>Student Member {i + 1}</span>
+                    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+                      <label style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', fontSize: '0.8rem', cursor: 'pointer', color: member.isLead ? '#1d4ed8' : 'var(--text-secondary)', fontWeight: member.isLead ? 600 : 400 }}>
+                        <input type="checkbox" checked={member.isLead} onChange={(e) => updateMember(i, 'isLead', e.target.checked)} style={{ accentColor: 'var(--accent-brand)' }} />
                         Project Lead
                       </label>
                       {members.length > 1 && (
