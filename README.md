@@ -8,9 +8,8 @@
 [![GitHub Issues](https://img.shields.io/github/issues/MrSpideyNihal/Findmeproject?style=for-the-badge&logo=github&color=0f172a&labelColor=1e293b)](https://github.com/MrSpideyNihal/Findmeproject/issues)
 
 </div>
-
-> ⭐ **Original Repository Link:** If you fork, deploy, or use this codebase, please attribute and star the original project:  
-> 👉 [**https://github.com/MrSpideyNihal/Findmeproject**](https://github.com/MrSpideyNihal/Findmeproject)
+ 
+>  [**https://github.com/MrSpideyNihal/Findmeproject**](https://github.com/MrSpideyNihal/Findmeproject)
 
 ### Version 1.0.0-stable
 A unified academic project showcase platform designed for G.H. Raisoni College of Engineering (GHRCE) to exhibit student innovations, promote research, and connect tomorrow's engineers with industry leaders. Built with Next.js 16 (App Router), MongoDB, and NextAuth.
