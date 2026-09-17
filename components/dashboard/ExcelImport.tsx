@@ -17,6 +17,8 @@ import {
   CheckSquare,
   Square,
   RotateCcw,
+  Info,
+  ShieldCheck,
 } from 'lucide-react';
 import { useToast } from '@/components/ToastProvider';
 import { parseWorkbook, type ParsedProject } from '@/lib/parseExcel';
@@ -357,9 +359,9 @@ export default function ExcelImport({ onClose, onImportComplete }: ExcelImportPr
                 </div>
               )}
 
-              <div style={{ marginTop: '1.5rem', padding: '1rem', background: 'var(--bg-secondary)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-secondary)' }}>
-                <p style={{ fontWeight: 600, fontSize: '0.85rem', marginBottom: '0.5rem', color: 'var(--accent-secondary)' }}>
-                  💡 Supported Format
+              <div style={{ marginTop: '1.5rem', padding: '1rem', background: 'var(--bg-subtle)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-secondary)' }}>
+                <p style={{ fontWeight: 600, fontSize: '0.85rem', marginBottom: '0.35rem', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <Info size={15} color="var(--accent-brand)" /> Supported Format
                 </p>
                 <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
                   Excel files with columns like <strong>Batch No.</strong>, <strong>Student Name</strong>, <strong>Email</strong>, <strong>Title of Project</strong>, <strong>Guide Name</strong>, etc. The AIML Alumni Connect format is fully supported.
@@ -516,13 +518,17 @@ export default function ExcelImport({ onClose, onImportComplete }: ExcelImportPr
                                   style={{
                                     fontSize: '0.75rem',
                                     padding: '0.2rem 0.5rem',
-                                    background: m.isLead ? 'rgba(245, 158, 11, 0.15)' : 'var(--bg-secondary)',
-                                    border: `1px solid ${m.isLead ? 'rgba(245, 158, 11, 0.3)' : 'var(--border-secondary)'}`,
+                                    background: m.isLead ? '#eff6ff' : 'var(--bg-subtle)',
+                                    border: `1px solid ${m.isLead ? '#bfdbfe' : 'var(--border-secondary)'}`,
                                     borderRadius: '999px',
-                                    color: m.isLead ? 'var(--accent-tertiary)' : 'var(--text-secondary)',
+                                    color: m.isLead ? '#1d4ed8' : 'var(--text-secondary)',
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '0.25rem',
+                                    fontWeight: m.isLead ? 600 : 500,
                                   }}
                                 >
-                                  {m.name} {m.isLead && '⭐'}
+                                  {m.name} {m.isLead && <span className="badge badge-lead" style={{ fontSize: '0.65rem', padding: '0.05rem 0.35rem' }}>Lead</span>}
                                 </span>
                               ))}
                             </div>
@@ -555,12 +561,12 @@ export default function ExcelImport({ onClose, onImportComplete }: ExcelImportPr
                           {/* Warnings */}
                           {hasWarnings && (
                             <div>
-                              <h5 style={{ fontSize: '0.8rem', fontWeight: 600, color: '#f59e0b', marginBottom: '0.5rem' }}>
-                                ⚠️ Warnings
+                              <h5 style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-warning)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                                <AlertTriangle size={13} /> Warnings
                               </h5>
                               <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
                                 {project.warnings.map((w, wi) => (
-                                  <li key={wi} style={{ fontSize: '0.75rem', color: '#fbbf24', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                                  <li key={wi} style={{ fontSize: '0.75rem', color: '#b45309', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
                                     <AlertTriangle size={11} /> {w}
                                   </li>
                                 ))}
@@ -627,8 +633,8 @@ export default function ExcelImport({ onClose, onImportComplete }: ExcelImportPr
                   />
                 )}
 
-                <h3 style={{ fontWeight: 700, fontSize: '1.25rem', marginBottom: '0.375rem' }}>
-                  {importResult.inserted > 0 ? 'Import Complete! 🎉' : 'Import Failed'}
+                <h3 style={{ fontWeight: 700, fontSize: '1.25rem', marginBottom: '0.375rem', color: 'var(--text-primary)' }}>
+                  {importResult.inserted > 0 ? 'Import Complete' : 'Import Failed'}
                 </h3>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
                   {importResult.inserted} of {importResult.total} projects imported successfully

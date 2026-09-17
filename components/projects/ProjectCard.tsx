@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Github, Users, Calendar, ArrowRight } from 'lucide-react';
+import { Github, Users, Calendar, ArrowRight, Video } from 'lucide-react';
 
 interface Member {
   name: string;
@@ -25,76 +25,120 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project }: ProjectCardProps) {
-  const lead = project.members.find((m) => m.isLead) || project.members[0];
-  const shortAbstract = project.abstract.length > 160
-    ? project.abstract.slice(0, 160) + '...'
+  const lead = project.members?.find((m) => m.isLead) || project.members?.[0];
+  const shortAbstract = project.abstract?.length > 150
+    ? project.abstract.slice(0, 150) + '...'
     : project.abstract;
 
   return (
     <div className="project-card">
-      {/* Header */}
-      <div style={{ marginBottom: '0.875rem' }}>
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '0.75rem', marginBottom: '0.375rem' }}>
-          <Link
-            href={`/projects/${project._id}`}
-            style={{ fontWeight: 700, fontSize: '1.05rem', lineHeight: 1.3, color: 'var(--text-primary)', flex: 1, transition: 'color 0.2s' }}
-          >
-            {project.title}
-          </Link>
+      {/* Top Header: Group, Batch, and External Link */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', marginBottom: '0.85rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
+          <span className="tag tag-group">{project.groupName}</span>
+          <span className="tag tag-batch">{project.batchName}</span>
+          {project.youtubeUrl && (
+            <span className="tag" style={{ background: '#fef2f2', color: '#dc2626', borderColor: '#fecaca' }}>
+              <Video size={11} /> Demo Video
+            </span>
+          )}
+        </div>
+
+        {project.githubUrl && (
           <a
             href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            title="View on GitHub"
-            style={{ color: 'var(--text-muted)', transition: 'color 0.2s', flexShrink: 0 }}
+            title="View GitHub Repository"
+            style={{
+              color: 'var(--text-muted)',
+              display: 'flex',
+              alignItems: 'center',
+              padding: '0.2rem',
+              borderRadius: '4px',
+              transition: 'color 0.15s',
+            }}
             onClick={(e) => e.stopPropagation()}
           >
-            <Github size={18} />
+            <Github size={16} />
           </a>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-          <span className="tag tag-cyan">{project.groupName}</span>
-          <span className="tag tag-amber">{project.batchName}</span>
-          {project.youtubeUrl && <span className="tag" style={{ background: 'rgba(239,68,68,0.1)', color: '#f87171', borderColor: 'rgba(239,68,68,0.2)' }}>▶ Demo</span>}
-        </div>
+        )}
       </div>
 
+      {/* Project Title */}
+      <h3 style={{ marginBottom: '0.5rem', lineHeight: 1.35 }}>
+        <Link
+          href={`/projects/${project._id}`}
+          style={{
+            fontWeight: 700,
+            fontSize: '1.05rem',
+            color: 'var(--text-primary)',
+            textDecoration: 'none',
+          }}
+        >
+          {project.title}
+        </Link>
+      </h3>
+
       {/* Abstract */}
-      <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '1rem' }}>
+      <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', lineHeight: 1.55, marginBottom: '1rem', flex: 1 }}>
         {shortAbstract}
       </p>
 
       {/* Tags */}
-      {project.tags.length > 0 && (
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.375rem', marginBottom: '1rem' }}>
+      {project.tags && project.tags.length > 0 && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem', marginBottom: '1.15rem' }}>
           {project.tags.slice(0, 4).map((tag) => (
-            <span key={tag} className="tag">{tag}</span>
+            <span key={tag} className="tag">
+              {tag}
+            </span>
           ))}
           {project.tags.length > 4 && (
-            <span className="tag" style={{ color: 'var(--text-muted)', borderColor: 'var(--border-secondary)' }}>
+            <span className="tag" style={{ color: 'var(--text-muted)' }}>
               +{project.tags.length - 4}
             </span>
           )}
         </div>
       )}
 
-      {/* Footer */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '0.875rem', borderTop: '1px solid var(--border-secondary)', gap: '0.5rem', flexWrap: 'wrap' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-            <Users size={13} />
-            {lead?.name || 'Unknown'}
+      {/* Card Footer */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          paddingTop: '0.85rem',
+          borderTop: '1px solid var(--border-secondary)',
+          fontSize: '0.8125rem',
+          color: 'var(--text-muted)',
+          gap: '0.5rem',
+          flexWrap: 'wrap',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', color: 'var(--text-secondary)', fontWeight: 500 }}>
+            <Users size={13} color="var(--text-muted)" />
+            {lead?.name || `${project.members?.length || 0} members`}
           </span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-            <Calendar size={13} />
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+            <Calendar size={13} color="var(--text-muted)" />
             {new Date(project.createdAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
           </span>
         </div>
+
         <Link
           href={`/projects/${project._id}`}
-          style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.8rem', color: 'var(--accent-primary-light)', fontWeight: 600, transition: 'gap 0.2s' }}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.25rem',
+            color: 'var(--text-primary)',
+            fontWeight: 600,
+            fontSize: '0.8125rem',
+            textDecoration: 'none',
+          }}
         >
-          View Details <ArrowRight size={13} />
+          Details <ArrowRight size={13} />
         </Link>
       </div>
     </div>
