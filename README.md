@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Original Repository](https://img.shields.io/badge/Original_Repository-MrSpideyNihal%2FFindmeproject-4f46e5?style=for-the-badge&logo=github)](https://github.com/MrSpideyNihal/Findmeproject)
+[![ Repository](https://img.shields.io/badge/Original_Repository-MrSpideyNihal%2FFindmeproject-4f46e5?style=for-the-badge&logo=github)](https://github.com/MrSpideyNihal/Findmeproject)
 [![GitHub Stars](https://img.shields.io/github/stars/MrSpideyNihal/Findmeproject?style=for-the-badge&logo=github&color=0f172a&labelColor=1e293b)](https://github.com/MrSpideyNihal/Findmeproject)
 [![GitHub Forks](https://img.shields.io/github/forks/MrSpideyNihal/Findmeproject?style=for-the-badge&logo=github&color=0f172a&labelColor=1e293b)](https://github.com/MrSpideyNihal/Findmeproject/network/members)
 [![GitHub Issues](https://img.shields.io/github/issues/MrSpideyNihal/Findmeproject?style=for-the-badge&logo=github&color=0f172a&labelColor=1e293b)](https://github.com/MrSpideyNihal/Findmeproject/issues)
